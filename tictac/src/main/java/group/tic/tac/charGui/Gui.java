@@ -94,4 +94,10 @@ public class Gui {
   public static boolean CheckHorizontalIntersect(Panel Target, Panel Placement){
     return ( (Target.Location.Column <= Placement.Location.Column) && (Placement.Location.Column <= Target.Location.Column + Target.Widht ) );
   }
+
+  public static boolean Intersects(Panel Target, Panel Placement){
+    boolean AinB = CheckHorizontalIntersect(Target, Placement) && CheckVerticalIntersect(Target, Placement);
+    boolean BinA = CheckHorizontalIntersect(Placement,Target) && CheckVerticalIntersect(Placement,Target);
+    return AinB || BinA;
+  }
 }

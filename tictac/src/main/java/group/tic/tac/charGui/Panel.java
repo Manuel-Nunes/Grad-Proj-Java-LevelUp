@@ -4,6 +4,11 @@ import group.tic.tac.utils.Utils;
 import java.util.List;
 
 public class Panel {
+  public static enum PlacePref{
+    Right,
+    Bottom
+  }
+
   public Cords Location = new Cords();
 
   public frameCharacterSet charSet = new frameCharacterSet();
