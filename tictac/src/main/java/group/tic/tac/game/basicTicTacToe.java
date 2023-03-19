@@ -26,7 +26,7 @@ public class basicTicTacToe implements tictacGame {
         return state;
     }
 
-    public static void showGameState() {
+    private static void showGameState() {
         System.out.println("\n===================");
         System.out.println("Board positions:\n");
         displayPosBoard(N);
@@ -36,7 +36,7 @@ public class basicTicTacToe implements tictacGame {
         System.out.println("\n===================");
     }
 
-    public static void displayEndGameMessage() {
+    private static void displayEndGameMessage() {
         System.out.println("______________________________\n");
         displayBoard();
         if (isGameOver() == GameState.Win) {
@@ -108,7 +108,7 @@ public class basicTicTacToe implements tictacGame {
         }
     }
 
-    public static boolean isBoardFull() {
+    private static boolean isBoardFull() {
         boolean isFull = true;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
