@@ -1,4 +1,4 @@
-package group.tic.tac.game;
+package group.tic.tac.game.MinMax;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,9 @@ import group.tic.tac.charGui.Panel;
 import group.tic.tac.charGui.PanelCollector;
 import group.tic.tac.utils.Utils;
 
-public class basicTicTacToe implements tictacGame {
+import group.tic.tac.game.*;
+
+public class advancedMinMax implements tictacGame {
 
     private static final int N = 3;
     private static final char[][] board = new char[N][N];
@@ -68,8 +70,6 @@ public class basicTicTacToe implements tictacGame {
         PC.Place(lastBoard);
 
         Utils.printArray(PC.renderToString());
-        System.out.println("Well done, continue with the story?");
-        scanner.next();
     }
 
     private static void switchPlayer() {
