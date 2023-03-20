@@ -1,13 +1,11 @@
 package group.tic.tac;
 
-/**
- * Hello world!
- *
- */
-public class App
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!╔" );
+import group.tic.tac.game.basicTicTacToe;
+import group.tic.tac.game.tictacGame;
+
+public class App {
+    public static void main(String[] args) {
+        tictacGame game = new basicTicTacToe();
+        game.enterGameLoop();
     }
 }
