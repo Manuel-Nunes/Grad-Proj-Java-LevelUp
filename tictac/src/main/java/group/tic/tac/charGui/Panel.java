@@ -17,16 +17,17 @@ public class Panel {
   public List<String> Raw;
   public int InnerWidth;
   public int Widht,Height;
+  public PlacePref PlacePrefrence = PlacePref.Right;
 
   public Panel(String input){
-    this(input.split("\n")); 
+    this(input.split("\n"));
   }
 
   public Panel(String[] Lines){
     this.Raw = Utils.arrToArray(Lines);
     this.Display = Utils.deepCopy(this.Raw);
   }
-  
+
   public void Generate(boolean GenFrame){
     Gui.AddPadding(this);
     Gui.equalLength(this);
@@ -37,5 +38,20 @@ public class Panel {
 
     this.Height = this.Display.size();
     this.Widht = this.Display.get(0).length();
+  }
+
+  public int getRight(){
+    return this.Location.Column + this.Widht;
+  }
+
+  public int getBottom(){
+    return this.Location.Row + this.Height;
+  }
+
+  public String getLineAt(int index){
+    if (index >= this.Location.Row && index < this.getBottom())
+      return this.Display.get(index-this.Location.Row);
+    // return Utils.genFiller(this.Widht,' ');
+    return "";
   }
 }

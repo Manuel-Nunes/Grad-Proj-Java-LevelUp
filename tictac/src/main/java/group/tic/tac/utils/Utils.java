@@ -46,4 +46,16 @@ public class Utils {
     }
     return Temp;
   }
+
+  public static void printArray(String[] Arr){
+    for (String s: Arr){
+      System.out.println(s);
+    }
+  }
+
+  public static void printArray(List<String> Arr) {
+    for (String s : Arr) {
+      System.out.println(s);
+    }
+  }
 }
