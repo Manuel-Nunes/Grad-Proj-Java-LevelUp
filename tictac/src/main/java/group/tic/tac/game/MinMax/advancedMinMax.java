@@ -1,7 +1,5 @@
 package group.tic.tac.game.MinMax;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import group.tic.tac.charGui.Panel;
@@ -14,7 +12,7 @@ public class advancedMinMax implements tictacGame {
 
     private static final int N = 3;
     private static final char[][] board = new char[N][N];
-    private static char currentPlayer = 'X';
+    private static char currentPlayer = 'O';
     private static Scanner scanner;
 
     public GameState enterGameLoop() {
@@ -121,32 +119,28 @@ public class advancedMinMax implements tictacGame {
         return coordinates[position - 1];
     }
 
-    private static List<Integer> availableSpots(){
-        List<Integer> lstAvail = new ArrayList<Integer>();
-        for (int i = 0; i < 3; i++){
-            for (int j = 0; j < 3; j++){
-                if (board[i][j] == '-')
-                    lstAvail.add(i*3+j+1);
-            }
-        }
-        return lstAvail;
-    }
-
     private static void makeMove() {
         int position;
+        int[] coordinates;
         if (currentPlayer == 'O')
         {
-            System.out.println(availableSpots());
-            List<Integer> lstAva = availableSpots();
-            position = availableSpots().get((int)Math.floor( Math.random()*lstAva.size()));
+            if (isEmpty())
+            {
+                coordinates = new int[] { 1,1};
+            }
+            else{
+                MinMax MM = new MinMax(board);
+                MinMax.Move toMake = MM.findBestMove();
+                coordinates = new int[] {toMake.row, toMake.col};
+            }
         }
         else{
             scanner = new Scanner(System.in);
             System.out.println("\nPlayer " + currentPlayer + ", make a move:");
             position = scanner.nextInt();
+            coordinates = getCoordinates(position);
         }
 
-        int[] coordinates = getCoordinates(position);
         int row = coordinates[0];
         int column = coordinates[1];
         if (board[row][column] == '-') {
@@ -206,6 +200,22 @@ public class advancedMinMax implements tictacGame {
             return true;
         }
         return false;
+    }
+
+    private static boolean isEmpty(){
+        boolean found = false;
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                found = board[i][j] != '-';
+                if (found)
+                    break;
+            }
+            if (found)
+                break;
+        }
+        return !found;
     }
 
     @Override

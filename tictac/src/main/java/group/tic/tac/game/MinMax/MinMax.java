@@ -13,13 +13,13 @@ public class MinMax {
     }
 
     //symbols for the players
-    static char player = 'X' , opponent = 'O';
+    public static char player = 'X' , opponent = 'O', space = '-';
 
     // function to check if moves are still available
     private boolean isMoveLeft(char[][] board){
         for(int x = 0; x < 3; x++){
             for(int y= 0; y < 3; y++){
-                if(board[x][y] == '_'){
+                if(board[x][y] == space){
                     return true;
                 }
             }
@@ -92,12 +92,12 @@ public class MinMax {
             for(int x = 0; x < 3 ; x++){
                 for(int y = 0 ; y < 3; y++){
                     // check for empty cells
-                    if(board[x][y] == '_'){
+                    if(board[x][y] == space){
                         board[x][y] = player;
                         // recursively calling the minimax to choose the max value
                         best = Math.max(best, minimax(board, depth +1, false));
                         // undo the move
-                        board[x][y] = '_';
+                        board[x][y] = space;
                     }
                 }
             }
@@ -110,12 +110,12 @@ public class MinMax {
             for(int x = 0; x < 3 ; x++){
                 for(int y = 0 ; y < 3; y++){
                     // check for empty cells
-                    if(board[x][y] == '_'){
+                    if(board[x][y] == space){
                         board[x][y] = opponent;
                         // recursively calling the minimax to choose the max value
                         best = Math.min(best, minimax(board, depth +1, true));
                         // undo the move
-                        board[x][y] = '_';
+                        board[x][y] = space;
                     }
                 }
             }
@@ -134,11 +134,11 @@ public class MinMax {
         // for empty cells return the optimal choice
         for(int x = 0; x < 3; x++){
             for(int y = 0; y < 3; y++){
-                if(board[x][y] == '_'){
+                if(board[x][y] == space){
                     board[x][y] = player;
                     int moveValue = minimax(this.board, 0,false);
                     //undo the move
-                    board[x][y] = '_';
+                    board[x][y] = space;
 
                     if(moveValue > bestValue){
                         bestMove.row = x;
