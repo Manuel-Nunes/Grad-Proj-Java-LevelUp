@@ -2,6 +2,7 @@ package group.tic.tac.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Utils {
   public static void clearConsole(){
@@ -57,5 +58,28 @@ public class Utils {
     for (String s : Arr) {
       System.out.println(s);
     }
+  }
+
+  public static int getUserInt(String Message){
+    System.out.print(Message);
+    return getUserInt();
+  }
+
+  public static int getUserInt(){
+    Scanner scan = new Scanner(System.in);
+    int temp = scan.nextInt();
+    scan.close();
+    return temp;
+  }
+
+  public static void waitForInput(String Message) {
+    System.out.print(Message);
+    waitForInput();
+  }
+
+  public static void waitForInput(){
+    Scanner scan = new Scanner(System.in);
+    scan.next();
+    scan.close();
   }
 }

@@ -13,6 +13,7 @@ public class Panel {
 
   public frameCharacterSet charSet = new frameCharacterSet();
   public int[] Paddings = new int[]{0,0,0,0};
+  public int[] Margins = new int[]{0,0,0,0};
   public List<String> Display;
   public List<String> Raw;
   public int InnerWidth;
@@ -31,10 +32,14 @@ public class Panel {
   public void Generate(boolean GenFrame){
     Gui.AddPadding(this);
     Gui.equalLength(this);
-    this.InnerWidth = Utils.longestWidth(Display);
+    // this.InnerWidth = Utils.longestWidth(Display);
+    this.InnerWidth = this.Display.get(0).length();
 
     if (GenFrame)
       Gui.GenerateFrame(this);
+
+    this.Widht = this.Display.get(0).length();
+    Gui.AddMargins(this);
 
     this.Height = this.Display.size();
     this.Widht = this.Display.get(0).length();

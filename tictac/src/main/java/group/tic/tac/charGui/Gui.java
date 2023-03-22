@@ -15,13 +15,32 @@ public class Gui {
       String RightPadding = Utils.genFiller(RightPaddingSize, Target.charSet.BodyChar);
       Target.Display.set(i, String.format("%s%s%s",LeftPadding,Target.Raw.get(i),RightPadding));
     }
-    
+
     for (int i = 0; i < Target.Paddings[0];i++){
       Target.Display.add(0,"");
     }
 
     for (int i = 0; i < Target.Paddings[2];i++){
       Target.Display.add(Target.Display.size(),"");
+    }
+  }
+
+  public static void AddMargins(Panel Target) {
+    for (int i = 0; i < Target.Display.size(); i++) {
+      int LeftMarginsSize = Target.Margins[3];
+      int RightMarginsSize = Target.Margins[1];
+      String LeftMargins = Utils.genFiller(LeftMarginsSize, ' ');
+      String RightMargins= Utils.genFiller(RightMarginsSize, ' ');
+      Target.Display.set(i, String.format("%s%s%s", LeftMargins, Target.Display.get(i), RightMargins));
+    }
+
+    int newWdith = Target.Widht + Target.Margins[1] + Target.Margins[3];
+    for (int i = 0; i < Target.Margins[0]; i++) {
+      Target.Display.add(0, Utils.genFiller(newWdith, ' '));
+    }
+
+    for (int i = 0; i < Target.Margins[2]; i++) {
+      Target.Display.add( Utils.genFiller(newWdith, ' '));
     }
   }
 
