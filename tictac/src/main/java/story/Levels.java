@@ -35,7 +35,7 @@ public class Levels {
         // enter the game loop
         gameState = ticTac.enterGameLoop();
         int count = 0;
-        while (gameState != tictacGame.GameState.Win) {
+        while (ticTac.currentPlayer != TicTacToe.PlayerOne) {
             count++;
             Utils.clearConsole();
             Utils.printArray(pcl.renderToString());
