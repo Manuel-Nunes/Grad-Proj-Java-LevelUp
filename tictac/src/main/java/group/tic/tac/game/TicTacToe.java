@@ -34,8 +34,8 @@ public class TicTacToe implements tictacGame {
   public void showGameState() {
     PanelCollector PC = new PanelCollector();
 
-    Panel boardPostion = new Panel("Postion\n"+displayPosBoard(this.N));
-    boardPostion.Paddings = new int[] {1,1,1,1};
+    Panel boardPostion = new Panel("Position\n" + displayPosBoard(this.N));
+    boardPostion.Paddings = new int[] { 1, 1, 1, 1 };
     boardPostion.Margins = new int[] { 1, 1, 1, 1 };
     boardPostion.Generate(true);
 
@@ -110,7 +110,7 @@ public class TicTacToe implements tictacGame {
     String Out = "";
     for (int row = 0; row < N; row++) {
       for (int column = 0; column < N; column++) {
-        Out +=String.format("%" + N + "s", row * 3 + column + 1);
+        Out += String.format("%" + N + "s", row * 3 + column + 1);
       }
       Out += '\n';
     }
@@ -137,13 +137,12 @@ public class TicTacToe implements tictacGame {
   private void makeMove() {
     int position = -1;
     if (currentPlayer == 'O') {
-      position = this.OpponentAgent.makeMove( this.board);
-    }
-    else{
+      position = this.OpponentAgent.makeMove(this.board);
+    } else {
       position = Utils.getUserInt("\nPlayer " + currentPlayer + ", make a move:");
-      while(!isInRange(position)){
-       System.out.println("Please choose an available spot");
-       position = Utils.getUserInt("\nPlayer " + currentPlayer + ", make a move:");
+      while (!isInRange(position)) {
+        System.out.println("Please choose an available spot");
+        position = Utils.getUserInt("\nPlayer " + currentPlayer + ", make a move:");
       }
     }
 
@@ -225,9 +224,8 @@ public class TicTacToe implements tictacGame {
   }
 
   // function to check range
-  private boolean isInRange(int position)
-  {
-    if(position >=0 && position <=9){
+  private boolean isInRange(int position) {
+    if (position >= 0 && position <= 9) {
       return true;
     }
     return false;
