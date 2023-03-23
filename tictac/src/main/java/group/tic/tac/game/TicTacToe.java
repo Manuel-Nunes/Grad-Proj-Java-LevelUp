@@ -11,7 +11,7 @@ public class TicTacToe implements tictacGame {
   public static char Space = '-', PlayerOne = 'X', PlayerTwo = 'O';
   public final int N = 3;
   public final char[][] board = new char[N][N];
-  public char currentPlayer = 'X';
+  public char currentPlayer = PlayerOne;
   public playerAgent OpponentAgent;
 
   public GameState enterGameLoop() {
@@ -156,23 +156,33 @@ public class TicTacToe implements tictacGame {
   public GameState isGameOver() {
     if (hasHorizontalWin() || hasVerticalWin() || hasDiagonalWin()) {
       return GameState.Win;
-    } else if (isBoardFull()) {
+    } else if (isBoardFull(this.board)) {
       return GameState.Draw;
     } else {
       return null;
     }
   }
 
-  public boolean isBoardFull() {
-    boolean isFull = true;
+  public static boolean isBoardFull(char[][] board) {
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
-        if (board[i][j] == '-') {
-          isFull = false;
+        if (board[i][j] == Space) {
+          return false;
         }
       }
     }
-    return isFull;
+    return true;
+  }
+
+  public static boolean isBoardEmpty(char[][] board) {
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        if (board[i][j] != Space) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   public boolean hasHorizontalWin() {

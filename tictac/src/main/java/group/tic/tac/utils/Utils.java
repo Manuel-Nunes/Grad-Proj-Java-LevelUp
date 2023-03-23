@@ -5,6 +5,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Utils {
+  static Scanner scan;
+
+  static {
+    scan = new Scanner(System.in);
+  }
+
   public static void clearConsole(){
     System.out.print("\033[H\033[2J");
     System.out.flush();
@@ -66,9 +72,7 @@ public class Utils {
   }
 
   public static int getUserInt(){
-    Scanner scan = new Scanner(System.in);
     int temp = scan.nextInt();
-    scan.close();
     return temp;
   }
 
@@ -78,8 +82,6 @@ public class Utils {
   }
 
   public static void waitForInput(){
-    Scanner scan = new Scanner(System.in);
     scan.next();
-    scan.close();
   }
 }

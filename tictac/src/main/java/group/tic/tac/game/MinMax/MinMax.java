@@ -2,9 +2,9 @@ package group.tic.tac.game.MinMax;
 
 public class MinMax {
     //movement of the agent
-    private static char[][] board;
-    static class Move{
-        int row, col;
+    private char[][] board;
+    public static class Move{
+       public int row, col;
     }
 
     //constructor for minmax agent
@@ -151,4 +151,5 @@ public class MinMax {
         System.out.println("Value of optimal move is " + bestValue);
         return bestMove;
     }
+
 }
