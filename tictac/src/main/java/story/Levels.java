@@ -9,10 +9,13 @@ import group.tic.tac.utils.Utils;
 public class Levels {
     private TicTacToe ticTac;
     private String levelDescription;
+    private String enterMessage;
+    private String finishedMessage;
 
-    public Levels(TicTacToe game, String levelDescription) {
+    public Levels(TicTacToe game, String levelDescription, String enterMessage) {
         this.ticTac = game;
         this.levelDescription = levelDescription;
+        this.enterMessage = enterMessage;
     }
     // method for startup
     public void loadLevel(){
@@ -26,19 +29,45 @@ public class Levels {
         pcl.Place(pc);
         Utils.clearConsole();
         Utils.printArray(pcl.renderToString());
-        Utils.waitForInput("Would you like to start the game? Press enter to continue");
+        Utils.waitForInput(enterMessage);
         Utils.clearConsole();
 
         //enter the game loop
         gameState = ticTac.enterGameLoop();
-
+        int count = 0;
         while(gameState != tictacGame.GameState.Win){
+            count++;
             Utils.clearConsole();
             Utils.printArray(pcl.renderToString());
-            Utils.waitForInput("Would you like to start the game? Press enter to continue");
+            inspirationFunction(count);
+            Utils.waitForInput("Would you like to continue? Press enter to continue");
             Utils.clearConsole();
             gameState = ticTac.enterGameLoop();
         }
     }
+
+    private void inspirationFunction(int count){
+        switch(count){
+            case 3:
+                System.out.println("You got it Champ, Keep your head up");
+                break;
+            case 5:
+                System.out.println("Time to get Serious Champ, you need to win the next round");
+                break;
+            case 7:
+                System.out.println("You really suck at this");
+                break;
+            case 9:
+                System.out.println("This you? IP:"+ Utils.getIP() + " Wanna go for drinks?? *wink*");
+                break;
+            default:
+                System.out.print("");
+                break;
+        }
+    }
+
+
+
+
 
 }

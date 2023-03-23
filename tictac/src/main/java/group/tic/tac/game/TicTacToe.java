@@ -75,7 +75,7 @@ public class TicTacToe implements tictacGame {
     PC.Place(lastBoard);
 
     Utils.printArray(PC.renderToString());
-    Utils.waitForInput("Well done, continue with the story?");
+    Utils.waitForInput();
   }
 
   public void switchPlayer() {
