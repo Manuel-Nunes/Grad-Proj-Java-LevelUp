@@ -1,4 +1,4 @@
-package group.tic.tac.game.basicTicTacAgent;
+package group.tic.tac.game.agents.basicTicTacAgent;
 
 import java.util.List;
 

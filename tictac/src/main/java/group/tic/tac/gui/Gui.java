@@ -1,4 +1,4 @@
-package group.tic.tac.charGui;
+package group.tic.tac.gui;
 
 import java.io.BufferedWriter;
 import java.io.OutputStreamWriter;

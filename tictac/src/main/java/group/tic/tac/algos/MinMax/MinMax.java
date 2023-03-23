@@ -1,4 +1,4 @@
-package group.tic.tac.game.MinMax;
+package group.tic.tac.algos.MinMax;
 
 public class MinMax {
     //movement of the agent

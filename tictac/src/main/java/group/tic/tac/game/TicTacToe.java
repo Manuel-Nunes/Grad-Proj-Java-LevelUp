@@ -3,8 +3,9 @@ package group.tic.tac.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import group.tic.tac.charGui.Panel;
-import group.tic.tac.charGui.PanelCollector;
+import group.tic.tac.game.agents.playerAgent;
+import group.tic.tac.gui.Panel;
+import group.tic.tac.gui.PanelCollector;
 import group.tic.tac.utils.Utils;
 
 public class TicTacToe implements tictacGame {
@@ -35,12 +36,15 @@ public class TicTacToe implements tictacGame {
 
     Panel boardPostion = new Panel("Postion\n"+displayPosBoard(this.N));
     boardPostion.Paddings = new int[] {1,1,1,1};
+    boardPostion.Margins = new int[] { 1, 1, 1, 1 };
     boardPostion.Generate(true);
 
     PC.Place(boardPostion);
 
     Panel board = new Panel("Board\n" + genDisplayBoard());
     board.Paddings = new int[] { 1, 1, 1, 1 };
+    board.Margins = new int[] { 1, 1, 1, 1 };
+
     board.Generate(true);
 
     PC.Place(board);
@@ -50,17 +54,14 @@ public class TicTacToe implements tictacGame {
 
   public void displayEndGameMessage() {
 
-    // System.out.println("______________________________\n");
     displayBoard();
     String messageOut = "";
     if (isGameOver() == GameState.Win) {
-      // System.out.println("\nGame over! Winner: " + currentPlayer);
       messageOut = "Game over! Winner: " + currentPlayer;
     } else {
-      // System.out.println("\nGame over! It's a draw!");
       messageOut = "Game over! It's a draw!";
     }
-    // System.out.println("______________________________");
+
     Utils.clearConsole();
     Panel outcomeMesasge = new Panel(messageOut);
     outcomeMesasge.Paddings = new int[] { 1, 1, 1, 1 };
@@ -187,7 +188,7 @@ public class TicTacToe implements tictacGame {
 
   public boolean hasHorizontalWin() {
     for (int row = 0; row < N; row++) {
-      if (board[row][0] != '-' && board[row][0] == board[row][1] && board[row][1] == board[row][2]) {
+      if (board[row][0] != Space && board[row][0] == board[row][1] && board[row][1] == board[row][2]) {
         return true;
       }
     }
@@ -196,7 +197,7 @@ public class TicTacToe implements tictacGame {
 
   public boolean hasVerticalWin() {
     for (int column = 0; column < N; column++) {
-      if (board[0][column] != '-' && board[0][column] == board[1][column]
+      if (board[0][column] != Space && board[0][column] == board[1][column]
           && board[1][column] == board[2][column]) {
         return true;
       }
@@ -205,10 +206,10 @@ public class TicTacToe implements tictacGame {
   }
 
   public boolean hasDiagonalWin() {
-    if (board[0][0] != '-' && board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
+    if (board[0][0] != Space && board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
       return true;
     }
-    if (board[0][2] != '-' && board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
+    if (board[0][2] != Space && board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
       return true;
     }
     return false;

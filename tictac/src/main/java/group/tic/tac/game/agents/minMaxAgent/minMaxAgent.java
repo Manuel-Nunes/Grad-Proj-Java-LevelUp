@@ -1,7 +1,7 @@
-package group.tic.tac.game.minMaxAgent;
+package group.tic.tac.game.agents.minMaxAgent;
 
+import group.tic.tac.algos.MinMax.MinMax;
 import group.tic.tac.game.TicTacToe;
-import group.tic.tac.game.MinMax.MinMax;
 
 public class minMaxAgent {
   public static int makeMove(char[][] board) {

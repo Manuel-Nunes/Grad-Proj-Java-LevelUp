@@ -1,4 +1,4 @@
-package group.tic.tac.charGui;
+package group.tic.tac.gui;
 import group.tic.tac.utils.Utils;
 
 import java.util.List;

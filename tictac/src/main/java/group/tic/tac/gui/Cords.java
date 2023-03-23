@@ -1,4 +1,4 @@
-package group.tic.tac.charGui;
+package group.tic.tac.gui;
 
 public class Cords {
   public int Row, Column;

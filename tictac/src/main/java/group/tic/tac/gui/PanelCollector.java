@@ -1,9 +1,9 @@
-package group.tic.tac.charGui;
+package group.tic.tac.gui;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import group.tic.tac.charGui.Panel.PlacePref;
+import group.tic.tac.gui.Panel.PlacePref;
 import group.tic.tac.utils.Utils;
 
 public class PanelCollector {
