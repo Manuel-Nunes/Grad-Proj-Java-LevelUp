@@ -1,7 +1,7 @@
 package group.tic.tac.game;
 
 public interface tictacGame {
-  enum GameState {
+  public enum GameState {
     Win,
     Lose,
     Draw

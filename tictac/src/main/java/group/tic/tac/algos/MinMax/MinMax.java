@@ -148,7 +148,6 @@ public class MinMax {
                 }
             }
         }
-        System.out.println("Value of optimal move is " + bestValue);
         return bestMove;
     }
 

@@ -1,6 +1,7 @@
 package group.tic.tac.utils;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -72,7 +73,14 @@ public class Utils {
   }
 
   public static int getUserInt(){
-    int temp = scan.nextInt();
+    int temp = -2;
+    try{
+      temp = scan.nextInt();
+    }catch(InputMismatchException numException)
+    {
+      System.out.println("Please provide a number");
+    }
+
     return temp;
   }
 
@@ -82,6 +90,6 @@ public class Utils {
   }
 
   public static void waitForInput(){
-    scan.next();
+    scan.nextLine();
   }
 }

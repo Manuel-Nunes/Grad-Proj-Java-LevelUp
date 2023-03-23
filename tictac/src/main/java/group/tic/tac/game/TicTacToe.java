@@ -135,12 +135,16 @@ public class TicTacToe implements tictacGame {
   }
 
   private void makeMove() {
-    int position;
+    int position = -1;
     if (currentPlayer == 'O') {
       position = this.OpponentAgent.makeMove( this.board);
     }
     else{
       position = Utils.getUserInt("\nPlayer " + currentPlayer + ", make a move:");
+      while(!isInRange(position)){
+       System.out.println("Please choose an available spot");
+       position = Utils.getUserInt("\nPlayer " + currentPlayer + ", make a move:");
+      }
     }
 
     int[] coordinates = getCoordinates(position);
@@ -219,4 +223,14 @@ public class TicTacToe implements tictacGame {
   public GameState enterGameLoop(int size, boolean isPlayerOne) {
     throw new UnsupportedOperationException("Unimplemented method 'enterGameLoop'");
   }
+
+  // function to check range
+  private boolean isInRange(int position)
+  {
+    if(position >=0 && position <=9){
+      return true;
+    }
+    return false;
+  }
+
 }

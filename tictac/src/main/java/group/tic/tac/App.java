@@ -2,11 +2,12 @@ package group.tic.tac;
 
 import group.tic.tac.game.TicTacToe;
 import group.tic.tac.game.agents.basicTicTacAgent.basicTicTacAgent;
+import group.tic.tac.game.agents.minMaxAgent.minMaxAgent;
+import story.Story;
 
 public class App {
     public static void main(String[] args) {
-        TicTacToe game = new TicTacToe();
-        game.OpponentAgent = basicTicTacAgent::makeMove;
-        game.enterGameLoop();
+        Story story = new Story();
+        story.startStory();
     }
 }
