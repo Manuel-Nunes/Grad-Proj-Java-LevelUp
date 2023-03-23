@@ -10,15 +10,26 @@ import group.tic.tac.utils.Utils;
 
 public class TicTacToe implements tictacGame {
   public static char Space = '-', PlayerOne = 'X', PlayerTwo = 'O';
-  public final int N = 3;
-  public final char[][] board = new char[N][N];
+  public int N, inARow;
+  public char[][] board;
   public char currentPlayer = PlayerOne;
   public playerAgent OpponentAgent;
+
+  public TicTacToe(){
+    this(3,3);
+  }
+
+  public TicTacToe(int Size, int WinRequired){
+    this.N = Size;
+    this.board = new char[Size][Size];
+    this.inARow = WinRequired;
+  }
 
   public GameState enterGameLoop() {
     initializeBoard();
     GameState state;
     while (true) {
+      Utils.clearConsole();
       showGameState();
       this.makeMove();
       state = isGameOver();
@@ -35,15 +46,15 @@ public class TicTacToe implements tictacGame {
     PanelCollector PC = new PanelCollector();
 
     Panel boardPostion = new Panel("Position\n" + displayPosBoard(this.N));
-    boardPostion.Paddings = new int[] { 1, 1, 1, 1 };
+    boardPostion.Paddings = new int[] { 1, 2, 1, 2 };
     boardPostion.Margins = new int[] { 1, 1, 1, 1 };
     boardPostion.Generate(true);
 
     PC.Place(boardPostion);
 
     Panel board = new Panel("Board\n" + genDisplayBoard());
-    board.Paddings = new int[] { 1, 1, 1, 1 };
-    board.Margins = new int[] { 1, 1, 1, 1 };
+    board.Paddings = new int[] { 1, 2, 1, 2 };
+    board.Margins = new int[] { 1, 2, 1, 2 };
 
     board.Generate(true);
 
@@ -56,21 +67,24 @@ public class TicTacToe implements tictacGame {
 
     displayBoard();
     String messageOut = "";
-    if (isGameOver() == GameState.Win) {
+    GameState StateOfGame = isGameOver();
+    if (StateOfGame == GameState.Win) {
       messageOut = "Game over! Winner: " + currentPlayer;
-    } else {
+    } else if (StateOfGame == GameState.Draw) {
       messageOut = "Game over! It's a draw!";
+    } else {
+
     }
 
     Utils.clearConsole();
     Panel outcomeMesasge = new Panel(messageOut);
-    outcomeMesasge.Paddings = new int[] { 1, 1, 1, 1 };
+    outcomeMesasge.Paddings = new int[] { 1, 2, 1, 2 };
     outcomeMesasge.Generate(true);
     PanelCollector PC = new PanelCollector();
     PC.Place(outcomeMesasge);
 
     Panel lastBoard = new Panel(genDisplayBoard());
-    lastBoard.Paddings = new int[] { 1, 0, 1, 1 };
+    lastBoard.Paddings = new int[] { 1, 2, 1, 2 };
     lastBoard.Generate(true);
     PC.Place(lastBoard);
 
@@ -79,7 +93,7 @@ public class TicTacToe implements tictacGame {
   }
 
   public void switchPlayer() {
-    currentPlayer = (currentPlayer == 'X') ? 'O' : 'X';
+    currentPlayer = (currentPlayer == PlayerOne) ? PlayerTwo : PlayerOne;
   }
 
   public void initializeBoard() {
@@ -91,44 +105,50 @@ public class TicTacToe implements tictacGame {
   }
 
   public String genDisplayBoard() {
-
-    String sOut = "";
-    for (int row = 0; row < N; row++) {
-      for (int column = 0; column < N; column++) {
-        sOut += String.format(board[row][column] + " ", row * 3 + column + 1);
-      }
-      sOut += '\n';
+    String Out = "";
+    for (int r = 0;r < N;r++ )
+    {
+      String sLine = "|";
+      for (int c = 0;c < N;c++ )
+        sLine += String.format(" %c |", board[r][c], N) ;
+      Out += sLine + '\n';
     }
-    return sOut;
+    return Out;
   }
 
   public void displayBoard() {
     System.out.println(genDisplayBoard());
   }
 
-  public String displayPosBoard(int N) {
+  public static String displayPosBoard(int N) {
     String Out = "";
-    for (int row = 0; row < N; row++) {
-      for (int column = 0; column < N; column++) {
-        Out += String.format("%" + N + "s", row * 3 + column + 1);
-      }
-      Out += '\n';
+    int Length = String.valueOf(N*N).length();
+    for (int r = 0;r < N;r++ )
+    {
+      String sLine = "|";
+      for (int c = 0;c < N;c++ )
+        sLine += String.format(" %s |", Utils.numToFixLenString(getPosFromCords(new int[] {r,c}, N), Length)) ;
+      Out += sLine + '\n';
     }
     return Out;
   }
 
-  public int[] getCoordinates(int position) {
-    int[][] coordinates = { { 0, 0 }, { 0, 1 }, { 0, 2 }, { 1, 0 }, { 1, 1 }, { 1, 2 }, { 2, 0 }, { 2, 1 },
-        { 2, 2 } };
-    return coordinates[position - 1];
+  public static int[] getCoordinates(int position, int Size) {
+    position--;
+    return new int[] {position/Size, position %Size};
+  }
+  
+  public static int getPosFromCords(int[] Cords, int Size){
+    return Cords[0]*Size+Cords[1]+1;
   }
 
   public static List<Integer> availableSpots(char[][] board) {
     List<Integer> lstAvail = new ArrayList<Integer>();
-    for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 3; j++) {
+    int Size = board[0].length;
+    for (int i = 0; i < Size; i++) {
+      for (int j = 0; j < Size; j++) {
         if (board[i][j] == '-')
-          lstAvail.add(i * 3 + j + 1);
+          lstAvail.add(i * Size + j + 1);
       }
     }
     return lstAvail;
@@ -146,7 +166,7 @@ public class TicTacToe implements tictacGame {
       }
     }
 
-    int[] coordinates = getCoordinates(position);
+    int[] coordinates = getCoordinates(position,N);
     int row = coordinates[0];
     int column = coordinates[1];
     if (board[row][column] == '-') {
@@ -158,7 +178,7 @@ public class TicTacToe implements tictacGame {
   }
 
   public GameState isGameOver() {
-    if (hasHorizontalWin() || hasVerticalWin() || hasDiagonalWin()) {
+    if (hasWin()) {
       return GameState.Win;
     } else if (isBoardFull(this.board)) {
       return GameState.Draw;
@@ -208,14 +228,131 @@ public class TicTacToe implements tictacGame {
     return false;
   }
 
-  public boolean hasDiagonalWin() {
-    if (board[0][0] != Space && board[0][0] == board[1][1] && board[1][1] == board[2][2]) {
-      return true;
-    }
-    if (board[0][2] != Space && board[0][2] == board[1][1] && board[1][1] == board[2][0]) {
-      return true;
+  public boolean hasWin() {
+    int limit = N*N;
+    for (int i = 1;i <= limit;i++){
+      //DoTLBR Check
+      int[] Cords = getCoordinates(i,N);
+      if (board[Cords[0]][Cords[1]] != Space && validDiagonalCords(Cords, inARow, N, diagonalEval.TLBR) ){
+        char Found = board[Cords[0]][Cords[1]];
+        boolean doCheck = true;
+        for (int j = 1;j < inARow;j++)
+        {
+          if (Found != board[Cords[0]+j][Cords[1]+j])
+          {
+            doCheck = false;
+            break;
+          }
+        }
+        if (doCheck)
+          return true;
+      }
+
+      //DoTRBL Check
+      if (board[Cords[0]][Cords[1]] != Space && validDiagonalCords(Cords, inARow, N, diagonalEval.TRBL)){
+        char Found = board[Cords[0]][Cords[1]];
+        boolean doCheck = true;
+        for (int j = 1;j < inARow;j++)
+        {
+          if (Found != board[Cords[0]+j][Cords[1]-j])
+          {
+            doCheck = false;
+            break;
+          }
+        }
+        if (doCheck)
+          return true;
+      }
+
+      if (board[Cords[0]][Cords[1]] != Space && validCardinalCords(Cords, inARow, N,true)){
+        char Found = board[Cords[0]][Cords[1]];
+        boolean doCheck = true;
+        for (int j = 1;j < inARow;j++)
+        {
+          if (Found != board[Cords[0]+j][Cords[1]])
+          {
+            doCheck = false;
+            break;
+          }
+        }
+        if (doCheck)
+          return true;
+      }
+
+      if (board[Cords[0]][Cords[1]] != Space && validCardinalCords(Cords, inARow, N,false)){
+        char Found = board[Cords[0]][Cords[1]];
+        boolean doCheck = true;
+        for (int j = 1;j < inARow;j++)
+        {
+          if (Found != board[Cords[0]][Cords[1]+j])
+          {
+            doCheck = false;
+            break;
+          }
+        }
+        if (doCheck)
+          return true;
+      }
     }
     return false;
+  }
+
+  private static enum diagonalEval{
+    TLBR,// \
+    BRTL,// \
+    TRBL,// /
+    BLTR // /
+  }
+
+  private static boolean validDiagonalCords(int[] Cords, int Required,int Size, diagonalEval EvalDirection){
+    Required--;
+    switch (EvalDirection){
+      case TLBR:{
+        if (Cords[0]+Required >= Size)//Space between bottom and start
+          return false;
+        if (Cords[1]+Required >= Size)// Space between Start and left
+          return false;
+      }
+      break;
+      case BRTL:{
+        if (Cords[0] - Required < 0)//Space between bottom and start
+          return false;
+        if (Cords[1] - Required < 0)// Space between Start and left
+          return false;
+      }
+      break;
+      case TRBL:{
+        if (Cords[0]+Required >= Size)//Space between bottom and start
+          return false;
+        if (Cords[1]-Required < 0)// Space between Start and left
+          return false;
+      }
+      break;
+      case BLTR:{
+        if (Cords[0] - Required < 0)//Space between bottom and start
+          return false;
+        if (Cords[1] + Required >= Size)// Space between Start and left
+          return false;
+      }
+      break;
+    }
+
+    return true;
+  }
+
+  private static boolean validCardinalCords(int[] Cords, int Required,int Size,boolean Vertical){
+    int index = (Vertical)?0:1;
+    Required--;
+    //Removed check because of the nature of the check is incorrect
+    // if (Cords[index]-Required < 0){
+    //   return false;
+    // }
+
+    if (Cords[index] + Required >= Size){
+      return false;
+    }
+
+    return true;
   }
 
   @Override
@@ -225,7 +362,7 @@ public class TicTacToe implements tictacGame {
 
   // function to check range
   private boolean isInRange(int position) {
-    if (position >= 0 && position <= 9) {
+    if (position >= 0 && position <= N*N) {
       return true;
     }
     return false;

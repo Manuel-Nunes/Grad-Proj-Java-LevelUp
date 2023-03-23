@@ -1,6 +1,5 @@
 package story;
 
-import group.tic.tac.algos.MinMax.MinMax;
 import group.tic.tac.game.TicTacToe;
 import group.tic.tac.game.agents.basicTicTacAgent.basicTicTacAgent;
 import group.tic.tac.game.agents.minMaxAgent.minMaxAgent;

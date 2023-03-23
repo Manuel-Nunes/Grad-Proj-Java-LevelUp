@@ -34,8 +34,8 @@ public class PanelCollector {
       blockedBy = intersectsWith(lstDeployed, Target);
     }
 
-    if (Target.Location.Row + Target.Height >= this.MaxHeight || Target.Location.Column+ Target.Widht >= this.MaxWidth)
-      return false;
+    // if (Target.Location.Row + Target.Height >= this.MaxHeight || Target.Location.Column+ Target.Widht >= this.MaxWidth)
+    //   return false;
     this.lstDeployed.add(Target);
     return true;
   }

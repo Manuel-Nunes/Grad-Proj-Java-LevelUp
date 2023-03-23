@@ -16,8 +16,16 @@ public class Utils {
   }
 
   public static void clearConsole(){
-    System.out.print("\033[H\033[2J");
-    System.out.flush();
+    // System.out.print("\033[H\033[2J\f");
+    // System.out.flush();
+    try {
+      if (System.getProperty("os.name").contains("Windows"))
+          new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+      else
+          Runtime.getRuntime().exec("clear");
+    } catch (Exception ex) {
+
+    }
   }
 
   public static void initStringArr(String[] Arr){
@@ -112,6 +120,14 @@ public class Utils {
     }
 
     return ip;
+  }
+
+  public static String numToFixLenString(int Value,int Length){
+    String Out = "";
+    int Remaing = Length - String.valueOf(Value).length();
+    for (int i =0; i < Remaing;i++)
+      Out += '0';
+    return Out += String.valueOf(Value);
   }
 
 }
