@@ -1,7 +1,6 @@
 package story;
 
 import group.tic.tac.game.TicTacToe;
-import group.tic.tac.game.tictacGame;
 import group.tic.tac.gui.Panel;
 import group.tic.tac.gui.PanelCollector;
 import group.tic.tac.utils.Utils;
@@ -19,7 +18,6 @@ public class Levels {
 
     // method for startup
     public void loadLevel() {
-        tictacGame.GameState gameState;
         Panel pc = new Panel(levelDescription);
         pc.Paddings = new int[] { 1, 1, 1, 1 };
         pc.Margins = new int[] { 1, 1, 1, 1 };
@@ -33,7 +31,7 @@ public class Levels {
         Utils.clearConsole();
 
         // enter the game loop
-        gameState = ticTac.enterGameLoop();
+        ticTac.enterGameLoop();
         int count = 0;
         while (ticTac.currentPlayer != TicTacToe.PlayerOne) {
             count++;
@@ -42,7 +40,7 @@ public class Levels {
             inspirationFunction(count);
             Utils.waitForInput("Would you like to continue? Press enter to continue.");
             Utils.clearConsole();
-            gameState = ticTac.enterGameLoop();
+            ticTac.enterGameLoop();
         }
     }
 
