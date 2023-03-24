@@ -87,8 +87,9 @@ public class MinMax {
         }
 
         // minimax logic
+        int best;
         if(isMax){
-            int best = -1000;
+            best = -1000;
             for(int x = 0; x < 3 ; x++){
                 for(int y = 0 ; y < 3; y++){
                     // check for empty cells
@@ -101,12 +102,11 @@ public class MinMax {
                     }
                 }
             }
-            return best;
 
         }
         // if its the minimizers move
         else{
-            int best = 1000;
+            best = 1000;
             for(int x = 0; x < 3 ; x++){
                 for(int y = 0 ; y < 3; y++){
                     // check for empty cells
@@ -119,8 +119,8 @@ public class MinMax {
                     }
                 }
             }
-            return best;
         }
+        return best;
     }
 
     // function to find the best move
