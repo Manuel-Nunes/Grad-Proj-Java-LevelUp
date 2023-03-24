@@ -86,9 +86,11 @@ public class MinMax {
             return 0;
         }
 
+
+        int best;
         // minimax logic
         if(isMax){
-            int best = -1000;
+            best = -1000;
             for(int x = 0; x < 3 ; x++){
                 for(int y = 0 ; y < 3; y++){
                     // check for empty cells
@@ -106,7 +108,7 @@ public class MinMax {
         }
         // if its the minimizers move
         else{
-            int best = 1000;
+            best = 1000;
             for(int x = 0; x < 3 ; x++){
                 for(int y = 0 ; y < 3; y++){
                     // check for empty cells

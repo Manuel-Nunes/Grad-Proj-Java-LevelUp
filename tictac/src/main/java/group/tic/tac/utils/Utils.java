@@ -16,16 +16,8 @@ public class Utils {
   }
 
   public static void clearConsole(){
-    // System.out.print("\033[H\033[2J\f");
-    // System.out.flush();
-    try {
-      if (System.getProperty("os.name").contains("Windows"))
-          new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-      else
-          Runtime.getRuntime().exec("clear");
-    } catch (Exception ex) {
-
-    }
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
   }
 
   public static void initStringArr(String[] Arr){
