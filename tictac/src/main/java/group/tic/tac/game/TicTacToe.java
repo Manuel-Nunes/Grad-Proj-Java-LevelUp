@@ -90,7 +90,7 @@ public class TicTacToe implements tictacGame {
 
     Utils.printArray(PC.renderToString());
     Utils.waitForInput();
-    Utils.waitForInput();
+    Utils.waitForInput("Press enter to continue.");
   }
 
   public void switchPlayer() {
