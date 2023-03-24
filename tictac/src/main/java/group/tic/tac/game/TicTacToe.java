@@ -90,6 +90,7 @@ public class TicTacToe implements tictacGame {
 
     Utils.printArray(PC.renderToString());
     Utils.waitForInput();
+    Utils.waitForInput();
   }
 
   public void switchPlayer() {
@@ -137,7 +138,7 @@ public class TicTacToe implements tictacGame {
     position--;
     return new int[] {position/Size, position %Size};
   }
-  
+
   public static int getPosFromCords(int[] Cords, int Size){
     return Cords[0]*Size+Cords[1]+1;
   }
